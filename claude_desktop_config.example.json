@@ -1,0 +1,57 @@
+{
+  "mcpServers": {
+    "mcp-db": {
+      "comment": "MCP Multi-Database Connector (local install)",
+      "command": "python",
+      "args": [
+        "-m",
+        "server"
+      ],
+      "cwd": "/path/to/mcp-db",
+      "env": {
+        "DB_TYPE": "mssql",
+        "DB_HOST": "localhost",
+        "DB_NAME": "your_database",
+        "DB_USER": "your_username",
+        "DB_PASSWORD": "your_password",
+        "DB_PORT": "1433",
+        "SCHEMA_ENABLE_CACHE": "true",
+        "SCHEMA_CACHE_TTL_MINUTES": "60",
+        "SCHEMA_PRELOAD_ON_STARTUP": "true"
+      }
+    },
+    "mcp-db-docker": {
+      "comment": "MCP Multi-Database Connector - Docker mode (recommended)",
+      "command": "docker",
+      "args": [
+        "exec",
+        "-i",
+        "mcp-db-dev",
+        "python",
+        "-m",
+        "server"
+      ],
+      "note": "Start container first: docker-compose up -d mcp-db"
+    },
+    "mcp-db-postgresql": {
+      "comment": "PostgreSQL connection example",
+      "command": "python",
+      "args": [
+        "-m",
+        "server"
+      ],
+      "cwd": "/path/to/mcp-db",
+      "env": {
+        "DB_TYPE": "postgresql",
+        "DB_HOST": "localhost",
+        "DB_NAME": "your_database",
+        "DB_USER": "your_username",
+        "DB_PASSWORD": "your_password",
+        "DB_PORT": "5432",
+        "DB_SCHEMA": "public",
+        "DB_SSLMODE": "prefer",
+        "SCHEMA_ENABLE_CACHE": "true"
+      }
+    }
+  }
+}

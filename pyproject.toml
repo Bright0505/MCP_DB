@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp-db"
+version = "5.0.0"
+description = "MCP server for multi-database connectivity (SQL Server & PostgreSQL)"
+authors = [{name = "BrightSu"}]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "mcp>=1.13.1",
+    "pyodbc>=5.0.0",
+    "psycopg2-binary>=2.9.7",
+    "pydantic>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "pandas>=2.0.0",
+    # Async database drivers (Phase 3 - for future async migration)
+    "aioodbc>=0.5.0",
+    "asyncpg>=0.29.0",
+    # Rate limiting (Phase 4 - security)
+    "slowapi>=0.1.9"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+    "ruff>=0.1.0"
+]
+
+[project.scripts]
+mcp-db = "server:main"
+mcp-db-http = "http_server:run_http_server"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.ruff]
+select = ["E", "F", "I", "N", "W"]
+ignore = []
+line-length = 88
+target-version = "py38"
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"

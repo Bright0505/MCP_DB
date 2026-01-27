@@ -1,0 +1,101 @@
+{
+  "table_name": "ORDERS",
+  "display_name": "Orders",
+  "type": "TABLE",
+  "category": "transaction_data",
+  "business_importance": "critical",
+
+  "metadata": {
+    "description": "Main orders table recording all customer transactions",
+    "record_level": "transaction",
+    "update_frequency": "real_time"
+  },
+
+  "business_logic": {
+    "primary_date_field": "ORDER_DATE",
+    "primary_amount_field": "TOTAL_AMOUNT",
+    "key_identifier": "ORDER_ID",
+    "status_field": "STATUS",
+    "status_values": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "shipped": "Shipped",
+      "cancelled": "Cancelled"
+    },
+    "active_records_filter": "STATUS NOT IN ('cancelled')",
+    "main_business_rules": [
+      "Each order has a unique ORDER_ID",
+      "STATUS='cancelled' records should be excluded from analysis"
+    ]
+  },
+
+  "relationships": {
+    "primary_key": ["ORDER_ID"],
+    "foreign_keys": [
+      {
+        "column": "CUSTOMER_ID",
+        "references": "CUSTOMERS.CUSTOMER_ID",
+        "description": "Customer reference",
+        "relationship_type": "many_to_one"
+      }
+    ],
+    "referenced_by": [
+      {
+        "table": "ORDER_ITEMS",
+        "column": "ORDER_ID",
+        "relationship_type": "one_to_many",
+        "description": "Order line items"
+      }
+    ]
+  },
+
+  "key_columns": {
+    "ORDER_ID": {
+      "semantic_type": "primary_identifier",
+      "business_importance": "critical",
+      "description": "Order ID",
+      "ai_hints": "Primary key for joining with order-related tables"
+    },
+    "CUSTOMER_ID": {
+      "semantic_type": "foreign_key",
+      "business_importance": "high",
+      "description": "Customer ID",
+      "ai_hints": "Foreign key to CUSTOMERS table"
+    },
+    "ORDER_DATE": {
+      "semantic_type": "primary_date",
+      "business_importance": "critical",
+      "description": "Order date",
+      "ai_hints": "Primary date field for time-based queries and trend analysis"
+    },
+    "TOTAL_AMOUNT": {
+      "semantic_type": "primary_amount",
+      "business_importance": "critical",
+      "description": "Order total amount",
+      "ai_hints": "Primary amount field for revenue calculations"
+    },
+    "STATUS": {
+      "semantic_type": "status",
+      "business_importance": "high",
+      "description": "Order status",
+      "ai_hints": "Filter with STATUS NOT IN ('cancelled') for active orders"
+    }
+  },
+
+  "ai_context": {
+    "query_keywords": ["order", "purchase", "transaction"],
+    "suggested_joins": [
+      "ORDER_ITEMS for line item details",
+      "CUSTOMERS for customer information"
+    ],
+    "common_filters": [
+      "ORDER_DATE for time range",
+      "STATUS for active orders"
+    ],
+    "aggregation_fields": [
+      "COUNT(*) AS order_count",
+      "SUM(TOTAL_AMOUNT) AS total_revenue",
+      "AVG(TOTAL_AMOUNT) AS avg_order_value"
+    ]
+  }
+}

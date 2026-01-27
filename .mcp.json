@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "mcp-db-docker": {
+      "comment": "MCP Multi-Database Connector - Docker mode (recommended)",
+      "command": "docker",
+      "args": [
+        "exec",
+        "-i",
+        "mcp-db-dev",
+        "python",
+        "-m",
+        "server"
+      ],
+      "note": "Start container first: docker-compose up -d mcp-db"
+    }
+  }
+}

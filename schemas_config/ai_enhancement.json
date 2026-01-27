@@ -1,0 +1,24 @@
+{
+  "query_patterns": {},
+
+  "business_context": {
+    "domain": "",
+    "industry": "",
+    "key_metrics": [],
+    "report_types": [],
+    "common_kpis": {}
+  },
+
+  "query_optimization": {
+    "performance_hints": {},
+    "common_optimizations": []
+  },
+
+  "natural_language_mappings": {
+    "chinese_keywords": {},
+    "amount_fields": [],
+    "quantity_fields": [],
+    "date_fields": [],
+    "important_notes": {}
+  }
+}

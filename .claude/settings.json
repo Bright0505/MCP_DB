@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat docs/CLAUDE.md"
+          },
+          {
+            "type": "command", 
+            "command": "cat README.md"
+          }
+        ]
+      }
+    ]
+  }
+}

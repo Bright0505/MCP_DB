@@ -1,0 +1,89 @@
+{
+  "column_patterns": {
+    "_ID$": {
+      "semantic_type": "identifier",
+      "default_description": "Identifier",
+      "business_hints": "Unique identifier field",
+      "data_types": ["int", "bigint", "varchar", "uuid"],
+      "ai_context": "Used for JOIN operations and unique identification"
+    },
+    "_NAME$": {
+      "semantic_type": "name",
+      "default_description": "Name",
+      "business_hints": "Display name field",
+      "data_types": ["varchar", "nvarchar", "text"],
+      "ai_context": "Used for search and display"
+    },
+    "_DATE$|_TIME$|_DATETIME$": {
+      "semantic_type": "datetime",
+      "default_description": "Date/Time",
+      "business_hints": "Time-related field",
+      "data_types": ["datetime", "date", "timestamp", "timestamptz"],
+      "ai_context": "Used for time range queries and trend analysis"
+    },
+    "_PRICE$|_AMT$|_AMOUNT$": {
+      "semantic_type": "money",
+      "default_description": "Amount",
+      "business_hints": "Monetary field",
+      "data_types": ["decimal", "numeric", "money"],
+      "ai_context": "Used for financial calculations and statistics"
+    },
+    "_QTY$|_QUANTITY$|_CNT$|_COUNT$": {
+      "semantic_type": "quantity",
+      "default_description": "Quantity",
+      "business_hints": "Quantity field",
+      "data_types": ["int", "decimal", "numeric"],
+      "ai_context": "Used for counting and inventory management"
+    },
+    "^STATUS$|^STATE$": {
+      "semantic_type": "status",
+      "default_description": "Status",
+      "business_hints": "Enumeration field for record status",
+      "data_types": ["varchar", "int", "smallint"],
+      "ai_context": "Used for filtering active/inactive records"
+    },
+    "_TYPE$|_KIND$": {
+      "semantic_type": "category",
+      "default_description": "Type/Category",
+      "business_hints": "Classification field",
+      "data_types": ["varchar", "int", "smallint"],
+      "ai_context": "Used for grouping and categorization"
+    },
+    "_NO$|_NUM$|_NUMBER$": {
+      "semantic_type": "number",
+      "default_description": "Number/Sequence",
+      "business_hints": "Number or sequence field",
+      "data_types": ["varchar", "int", "bigint"],
+      "ai_context": "Used for sorting and identification"
+    }
+  },
+
+  "business_calculations": {},
+
+  "time_patterns": {
+    "current_month": {
+      "sql_server": "MONTH({date_column}) = MONTH(GETDATE()) AND YEAR({date_column}) = YEAR(GETDATE())",
+      "postgresql": "DATE_TRUNC('month', {date_column}) = DATE_TRUNC('month', CURRENT_DATE)",
+      "description": "Current month data"
+    },
+    "current_year": {
+      "sql_server": "YEAR({date_column}) = YEAR(GETDATE())",
+      "postgresql": "DATE_TRUNC('year', {date_column}) = DATE_TRUNC('year', CURRENT_DATE)",
+      "description": "Current year data"
+    },
+    "last_30_days": {
+      "sql_server": "{date_column} >= DATEADD(DAY, -30, GETDATE())",
+      "postgresql": "{date_column} >= CURRENT_DATE - INTERVAL '30 days'",
+      "description": "Last 30 days"
+    },
+    "yesterday": {
+      "sql_server": "CAST({date_column} AS DATE) = CAST(DATEADD(DAY, -1, GETDATE()) AS DATE)",
+      "postgresql": "DATE({date_column}) = CURRENT_DATE - 1",
+      "description": "Yesterday"
+    }
+  },
+
+  "common_joins": {},
+
+  "status_mappings": {}
+}

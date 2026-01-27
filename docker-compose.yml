@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # MCP Database Connector service - Development Mode (MCP Server)
+  mcp-db:
+    build:
+      context: .
+      target: development
+    container_name: mcp-db-dev
+    env_file:
+      - .env
+    environment:
+      # Development settings
+      PYTHONPATH: /app/src
+      PYTHONUNBUFFERED: 1
+      PYTHONDONTWRITEBYTECODE: 1
+    volumes:
+      # Mount source code for live editing
+      - ./src:/app/src
+      - ./logs:/app/logs
+      - ./.env:/app/.env
+      # Schema configuration files
+      - ./schemas_config:/app/schemas_config
+      - ./schema:/app/schema
+      # Development tools volume
+      - ./tests:/app/tests
+    stdin_open: true
+    tty: true
+    network_mode: host
+    # Development command with auto-reload
+    command: ["python", "-m", "server"]
+    restart: unless-stopped
+
+  # HTTP API service - Development Mode
+  mcp-db-http:
+    build:
+      context: .
+      target: development
+    container_name: mcp-db-http-dev
+    env_file:
+      - .env
+    environment:
+      # Development settings
+      PYTHONPATH: /app/src
+      PYTHONUNBUFFERED: 1
+      PYTHONDONTWRITEBYTECODE: 1
+    volumes:
+      # Mount source code for live editing
+      - ./src:/app/src
+      - ./logs:/app/logs
+      - ./.env:/app/.env
+      # Schema configuration files
+      - ./schemas_config:/app/schemas_config
+      - ./schema:/app/schema
+      # Development tools volume
+      - ./tests:/app/tests
+    ports:
+      - "${HTTP_PORT:-8000}:8000"
+    # HTTP server command
+    command: ["python", "-m", "http_server"]
+    restart: unless-stopped
+    depends_on:
+      - mcp-db

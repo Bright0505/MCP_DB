@@ -1,0 +1,42 @@
+{
+  "schema_version": "2.1",
+  "metadata": {
+    "description": "Table whitelist and global settings - JSON configuration system",
+    "last_updated": "2026-01-27",
+    "total_tables": 0,
+    "data_sources": {
+      "table_list": "embedded_in_json",
+      "table_configs": "./tables/*.json"
+    }
+  },
+  "loading_strategy": {
+    "auto_scan_table_configs": true,
+    "priority_order": [
+      "table_json_config",
+      "embedded_table_list",
+      "global_patterns"
+    ],
+    "merge_strategy": "deep_merge"
+  },
+  "table_categories": {},
+  "importance_levels": {
+    "critical": {
+      "tables": [],
+      "description": "Core business tables, prioritized by AI analysis"
+    },
+    "high": {
+      "tables": [],
+      "description": "Important business tables, frequently used in analysis"
+    },
+    "medium": {
+      "tables": [],
+      "description": "Supporting tables, providing additional context"
+    },
+    "low": {
+      "tables": [],
+      "description": "Configuration tables, rarely used in analysis"
+    }
+  },
+  "business_domains": {},
+  "tables": {}
+}

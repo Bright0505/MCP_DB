@@ -1,0 +1,109 @@
+# MCP Multi-Database Connector Docker Image - Multi-stage build
+
+# Base stage with common dependencies
+FROM python:3.11-slim AS base
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies for both SQL Server and PostgreSQL
+RUN apt-get update && apt-get install -y \
+    curl \
+    apt-transport-https \
+    gnupg2 \
+    lsb-release \
+    unixodbc \
+    unixodbc-dev \
+    libpq-dev \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Microsoft ODBC Driver 18 for SQL Server
+RUN mkdir -p /usr/share/keyrings \
+    && curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg \
+    && chmod 644 /usr/share/keyrings/microsoft-prod.gpg \
+    && echo "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft-prod.gpg] https://packages.microsoft.com/debian/11/prod bullseye main" > /etc/apt/sources.list.d/mssql-release.list \
+    && apt-get update \
+    && ACCEPT_EULA=Y apt-get install -y msodbcsql18 || \
+    (echo "ODBC driver installation failed, using alternative approach" && \
+    apt-get install -y freetds-dev && \
+    echo "Using FreeTDS as ODBC alternative") \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy dependency files and source code
+COPY pyproject.toml README.md ./
+COPY src/ ./src/
+
+# Install Python dependencies from pyproject.toml
+RUN pip install --no-cache-dir setuptools wheel && \
+    pip install --no-cache-dir .
+
+# Development stage
+FROM base AS development
+
+# Install development tools
+RUN apt-get update && apt-get install -y \
+    git \
+    vim \
+    nano \
+    htop \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install development Python packages
+RUN pip install --no-cache-dir \
+    pytest \
+    pytest-asyncio \
+    pytest-cov \
+    black \
+    flake8 \
+    mypy \
+    streamlit \
+    pandas
+
+# Copy source code (will be overridden by volume mount in dev)
+COPY src/ ./src/
+
+# Install package in development mode
+RUN pip install --no-cache-dir -e .
+
+# Create directories for logs and tests
+RUN mkdir -p /app/logs /app/tests
+
+# Set development environment variables
+ENV PYTHONPATH="/app/src"
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV MCP_DEBUG=1
+
+# Expose ports for HTTP server and Streamlit
+EXPOSE 8000 8501
+
+# Default command for development (MCP server)
+CMD ["python", "-m", "server"]
+
+# Production stage
+FROM base AS production
+
+# Copy source code
+COPY src/ ./src/
+
+# Install package
+RUN pip install --no-cache-dir -e .
+
+# Create non-root user for security
+RUN useradd --create-home --shell /bin/bash mcpuser && \
+    mkdir -p /app/logs && \
+    chown -R mcpuser:mcpuser /app
+
+USER mcpuser
+
+# Set production environment variables
+ENV PYTHONPATH="/app/src"
+ENV PYTHONUNBUFFERED=1
+
+# Health check for MCP server
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python -c "from config import DatabaseConfig; print('OK')" || exit 1
+
+# Default command for production
+CMD ["python", "-m", "server"]
