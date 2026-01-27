@@ -388,29 +388,15 @@ docker-compose up -d mcp-db
 
 ---
 
-## 📚 其他資源
+## 其他資源
 
-- 📖 [完整安裝指南](installation.md)
-- ⚙️ [配置選項說明](configuration.md)
-- 🔧 [API 參考文檔](api-reference.md)
-- 🐳 [Docker 部署指南](docker.md)
-- 💡 [故障排除指南](troubleshooting.md)
-
----
-
-## 🎉 開始使用!
-
-現在您已經準備好使用 MCP Multi-Database Connector 了!
-
-1. ✅ 選擇一種部署方式 (Claude Desktop / Docker / HTTP API)
-2. ✅ 完成環境配置
-3. ✅ 測試資料庫連線
-4. ✅ 開始與 Claude 對話,探索您的資料庫!
-
-有任何問題,請參考 [故障排除指南](troubleshooting.md) 或提交 [GitHub Issue](https://github.com/yourusername/mcp-db/issues)。
+- [安裝指南](installation.md)
+- [系統架構](architecture.md)
+- [Schema 系統](schema-system.md)
+- [效能優化](performance.md)
+- [測試指南](testing.md)
 
 ---
 
-**建立者**: BrightSu
-**版本**: v4.0.0
-**最後更新**: 2025-11-26
+**版本**：v5.0.0
+**最後更新**：2026-01-27

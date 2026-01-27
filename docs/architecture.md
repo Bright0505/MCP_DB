@@ -1,6 +1,6 @@
 # 🏗️ 系統架構
 
-MCP Multi-Database Connector 採用分層模組化設計，提供靈活且可擴展的多資料庫連接解決方案。本文檔詳細說明 v4.2.0 的架構設計、核心模組和資料流程。
+MCP Multi-Database Connector 採用分層模組化設計，提供靈活且可擴展的多資料庫連接解決方案。本文件詳細說明架構設計、核心模組與資料流程。
 
 ## 📊 總體架構
 
@@ -635,11 +635,11 @@ cache.get_preload_status()
 
 ---
 
-> 📚 **相關文檔**:
-> - [v4.2 架構重構詳解](development/v4.2-architecture-refactoring.md) - 完整的重構文檔
-> - [Schema 系統](schema-system.md) - schemas_config 配置系統
-> - [效能優化](performance.md) - 快取和 Token 優化策略
-> - [測試指南](../TESTING_SUMMARY.md) - 單元測試和覆蓋率報告
+> **相關文件**：
+> - [v4.2 架構重構詳解](development/v4.2-architecture-refactoring.md) — 完整重構文件
+> - [Schema 系統](schema-system.md) — schemas_config 配置系統
+> - [效能優化](performance.md) — 快取與 Token 優化策略
+> - [測試指南](testing.md) — 單元測試與覆蓋率報告
 
-**最後更新**: 2025-12-30
-**架構版本**: v4.2.0
+**最後更新**：2026-01-27
+**版本**：v5.0.0

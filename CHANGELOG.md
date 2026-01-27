@@ -2,7 +2,24 @@
 
 本文檔記錄 MCP Multi-Database Connector 的所有重要變更和版本發布資訊。
 
-## [v4.3.0] - 2026-01-05 - 測試系統與文檔整理 ✅
+## [v5.0.0] - 2026-01-27 - 通用化重構與文件整理
+
+### 重構
+- **移除所有 posdb 引用**：全面重新命名為 `db_` 前綴（TOOL_PREFIX 預設值從 `posdb` 改為 `db`）
+- `POSDB_TOOLS` → `DB_TOOLS`
+- `MCPPOSDBError` 向後相容別名已移除
+- 移除 server.py 中 170 行的舊版工具定義註解區塊
+
+### 文件
+- **README.md 全面改寫**：繁體中文、ASCII 架構圖、清晰範例、移除死連結
+- **移除 7 個死連結**：configuration.md、claude-desktop.md、http-api.md、database-support.md、docker.md、api-reference.md、troubleshooting.md
+- **統一文件語言**：所有文件導覽與連結改為繁體中文
+- **版本號統一**：所有文件更新至 v5.0.0
+- **歸檔 HARDCODE_FIX_PLAN.md**：移至 docs/development/
+
+---
+
+## [v4.3.0] - 2026-01-05 - 測試系統與文檔整理
 
 ### 🧪 測試系統
 

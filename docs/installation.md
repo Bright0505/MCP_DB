@@ -291,7 +291,7 @@ DB_PASSWORD=your_password
 DB_PORT=5432  # PostgreSQL: 5432, SQL Server: 1433
 ```
 
-詳細配置選項請參考 [配置指南](configuration.md)。
+詳細配置選項請參考 [.env.example](../.env.example)。
 
 ---
 
@@ -387,21 +387,19 @@ newgrp docker
 
 如果安裝過程中遇到問題：
 
-1. 📖 **查看故障排除**: [故障排除指南](troubleshooting.md)
-2. 🔍 **搜尋已知問題**: [GitHub Issues](https://github.com/brightsu/mcp-db/issues)
-3. 💬 **社群討論**: [GitHub Discussions](https://github.com/brightsu/mcp-db/discussions)
-4. 📧 **建立新問題**: [新問題回報](https://github.com/brightsu/mcp-db/issues/new)
+- [GitHub Issues](https://github.com/Bright0505/MCP_DB/issues) — 搜尋已知問題或回報新問題
 
 ---
 
-## 🎯 下一步
+## 下一步
 
 安裝完成後，建議：
 
-1. 📚 **快速開始**: [5 分鐘快速開始指南](quick-start.md)
-2. ⚙️ **詳細配置**: [配置指南](configuration.md)
-3. 💻 **選擇使用方式**:
-   - [MCP 快速入門](MCP_QUICK_START.md) - Claude Desktop 整合
-   - [HTTP API 使用](http-api.md) - Open WebUI 整合
+1. [快速開始](quick-start.md) — 5 分鐘上手指南
+2. [MCP 快速入門](MCP_QUICK_START.md) — Claude Desktop 整合
+3. [schemas_config 配置](../schemas_config/README.md) — 業務客製化
 
-> 🎉 **恭喜！** 您已成功安裝 MCP Multi-Database Connector v4.0.0（MCP + OpenAPI 雙模式架構）。開始探索強大的多資料庫連接功能吧！
+---
+
+**版本**：v5.0.0
+**最後更新**：2026-01-27
