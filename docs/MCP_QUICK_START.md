@@ -13,22 +13,22 @@ This project implements a full MCP server with **10+ database tools**, enabling 
 ## ✨ 核心功能
 
 ### 🔌 連線管理
-- `posdb_test_connection` - 測試資料庫連線狀態
+- `db_test_connection` - 測試資料庫連線狀態
 
 ### 📊 資料查詢（只讀模式）
-- `posdb_query` - 執行 SELECT 查詢並返回結果（不支援 INSERT/UPDATE/DELETE）
+- `db_query` - 執行 SELECT 查詢並返回結果（不支援 INSERT/UPDATE/DELETE）
 
 ### 🗄️ Schema 分析
-- `posdb_schema` - 查看資料庫表格和欄位結構
-- `posdb_dependencies` - 分析表格間的依賴關係
-- `posdb_schema_summary` - 查看資料庫摘要統計
-- `posdb_export_schema` - 匯出表格 Schema 到文件
-- `posdb_static_schema_info` - 查看靜態 Schema 配置資訊
+- `db_schema` - 查看資料庫表格和欄位結構
+- `db_dependencies` - 分析表格間的依賴關係
+- `db_schema_summary` - 查看資料庫摘要統計
+- `db_export_schema` - 匯出表格 Schema 到文件
+- `db_static_schema_info` - 查看靜態 Schema 配置資訊
 
 ### ⚡ 效能優化
-- `posdb_cache_stats` - 查看 Schema 快取統計資訊
-- `posdb_cache_invalidate` - 清除快取條目
-- `posdb_schema_reload` - 重新載入 Schema 配置
+- `db_cache_stats` - 查看 Schema 快取統計資訊
+- `db_cache_invalidate` - 清除快取條目
+- `db_schema_reload` - 重新載入 Schema 配置
 
 ---
 

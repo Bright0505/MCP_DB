@@ -325,7 +325,7 @@ class AppConfig(BaseModel):
     claude_config: ClaudeConfig
     http_config: HTTPConfig
     expose_sensitive_info: bool = False  # Control whether to expose sensitive info in health checks
-    tool_prefix: str = Field(default="posdb", description="Prefix for MCP tool names (e.g. posdb_query)")
+    tool_prefix: str = Field(default="db", description="Prefix for MCP tool names (e.g. db_query)")
     server_name: str = Field(default="mcp-db", description="MCP server name identifier")
 
     @classmethod
@@ -338,6 +338,6 @@ class AppConfig(BaseModel):
             claude_config=ClaudeConfig.from_env(),
             http_config=HTTPConfig.from_env(),
             expose_sensitive_info=os.getenv("EXPOSE_SENSITIVE_INFO", "false").lower() == "true",
-            tool_prefix=os.getenv("TOOL_PREFIX", "posdb"),
+            tool_prefix=os.getenv("TOOL_PREFIX", "db"),
             server_name=os.getenv("MCP_SERVER_NAME", "mcp-db")
         )

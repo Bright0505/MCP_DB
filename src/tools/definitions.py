@@ -9,7 +9,7 @@ from mcp.types import Tool
 
 def get_tool_prefix() -> str:
     """Get tool name prefix from environment or default."""
-    return os.getenv("TOOL_PREFIX", "posdb")
+    return os.getenv("TOOL_PREFIX", "db")
 
 
 def make_tool_name(suffix: str) -> str:
@@ -19,7 +19,7 @@ def make_tool_name(suffix: str) -> str:
         suffix: The tool suffix (e.g. 'query', 'schema')
 
     Returns:
-        Full tool name (e.g. 'posdb_query')
+        Full tool name (e.g. 'db_query')
     """
     return f"{get_tool_prefix()}_{suffix}"
 
@@ -244,5 +244,4 @@ def get_all_tools() -> List[Tool]:
     ]
 
 
-# Backward-compatible exports
-POSDB_TOOLS = get_all_tools()
+DB_TOOLS = get_all_tools()

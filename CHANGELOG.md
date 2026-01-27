@@ -161,7 +161,7 @@
 ## [v4.1.0] - 2025-11-28 - Schema 工具智能增強
 
 ### ✨ 新功能
-- **Schema Prompt Injection**: `posdb_schema` 工具現在會直接在輸出中注入 `schemas_config` 定義的業務邏輯和 AI 上下文
+- **Schema Prompt Injection**: `db_schema` 工具現在會直接在輸出中注入 `schemas_config` 定義的業務邏輯和 AI 上下文
   - **Business Logic 顯示**: 自動列出有效資料過濾條件 (Active Filter)、狀態值定義 (Status Values) 和業務規則
   - **AI Context 注入**: 直接顯示建議的關聯 (Joins)、常用篩選條件和關鍵字映射
   - **效益**: 讓 AI 在查看 Schema 時就能立即獲得業務領域知識，無需依賴額外的 System Prompt
@@ -180,21 +180,21 @@
 ### ❌ 移除的功能（Breaking Changes）
 
 **移除非核心功能，聚焦 MCP 核心價值**：
-- ❌ **Streamlit Web UI** (`src/mcp_posdb/streamlit_app.py`)
+- ❌ **Streamlit Web UI** (`src/mcp_db/streamlit_app.py`)
   - 理由：維護成本高，Open WebUI 可替代
   - 影響：原 Streamlit 使用者需遷移至 HTTP API 或 Claude Desktop
 
-- ❌ **Claude AI 客戶端** (`src/mcp_posdb/claude_client.py`)
+- ❌ **Claude AI 客戶端** (`src/mcp_db/claude_client.py`)
   - 理由：不需要內建 AI 功能，應用層自行整合
   - 影響：原 AI 功能使用者需在應用層整合 Claude API
 
-- ❌ **Dynamic Examples** (`src/mcp_posdb/dynamic_examples.py`)
+- ❌ **Dynamic Examples** (`src/mcp_db/dynamic_examples.py`)
   - 理由：非必要功能
 
 ### ✅ 保留的功能
 
 **HTTP API 保留以支援 Open WebUI**：
-- ✅ `src/mcp_posdb/http_server.py` - 完整的 RESTful API
+- ✅ `src/mcp_db/http_server.py` - 完整的 RESTful API
 - ✅ OpenAPI/Swagger 文檔 - http://localhost:8000/docs
 - ✅ 所有 API 端點繼續支援
 
@@ -210,7 +210,7 @@
 - streamlit>=1.28.0
 - anthropic>=0.34.0
 - altair<5
-- mcp-posdb-streamlit (腳本入口)
+- mcp-db-streamlit (腳本入口)
 ```
 
 **保留的依賴**：
@@ -227,13 +227,13 @@
 
 **移除的服務**：
 ```yaml
-- mcp-posdb-streamlit  # Streamlit Web UI 容器
+- mcp-db-streamlit  # Streamlit Web UI 容器
 ```
 
 **保留的服務**：
 ```yaml
-✓ mcp-posdb           # MCP Server (stdio)
-✓ mcp-posdb-http      # HTTP API (port 8000)
+✓ mcp-db           # MCP Server (stdio)
+✓ mcp-db-http      # HTTP API (port 8000)
 ```
 
 ### 📚 文檔更新
@@ -288,7 +288,7 @@
 **原 Streamlit 使用者**：
 ```bash
 # 選項 1：使用 HTTP API
-python -m mcp_posdb.http_server
+python -m mcp_db.http_server
 # 訪問：http://localhost:8000/docs
 
 # 選項 2：使用 Claude Desktop
@@ -346,7 +346,7 @@ python -m mcp_posdb.http_server
 #### 新增
 ```python
 # 新的統一 API
-from mcp_posdb.static_schemas import get_schema_manager
+from mcp_db.static_schemas import get_schema_manager
 manager = get_schema_manager()
 manager.get_ai_enhancement_config()
 manager.get_global_patterns()
@@ -534,13 +534,13 @@ AGGREGATION_MAPPING  # 改用 ai_enhancement.json
 ## [v1.1.0] - 2025-08-28
 
 ### 🏷️ 專案重新命名
-- **專案名稱**: "mcp-mssql-server" → "mcp-posdb"
-- **資料夾結構**: `src/mcp_mssql_server/` → `src/mcp_posdb/`
-- **工具命名**: 所有工具從 `mssql_*` 改為 `posdb_*`
+- **專案名稱**: "mcp-mssql-server" → "mcp-db"
+- **資料夾結構**: `src/mcp_mssql_server/` → `src/mcp_db/`
+- **工具命名**: 所有工具從 `mssql_*` 改為 `db_*`
 
 ### ✨ 新功能
-- **`posdb_dependencies`**: 分析表格依賴關係
-- **`posdb_schema_summary`**: 資料庫物件摘要統計
+- **`db_dependencies`**: 分析表格依賴關係
+- **`db_schema_summary`**: 資料庫物件摘要統計
 - **靜態 Schema 預載**: 支援企業系統檔案
 - **智能快取系統**: TTL 快取和自動預載
 

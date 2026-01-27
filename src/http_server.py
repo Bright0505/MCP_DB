@@ -34,7 +34,7 @@ from database.async_manager import HybridDatabaseManager
 from database.schema.cache import CachedSchemaIntrospector
 # Import tool definitions and handlers from tools layer
 from mcp.types import CallToolRequest
-from tools import POSDB_TOOLS, ToolRegistry, get_all_tools
+from tools import DB_TOOLS, ToolRegistry, get_all_tools
 from tools.validators import SQLValidator
 
 # 設定日誌

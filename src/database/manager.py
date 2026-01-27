@@ -160,7 +160,7 @@ class DatabaseManager:
         """
         Get comprehensive database information.
 
-        Called by posdb_schema_summary tool handler.
+        Called by schema_summary tool handler.
         Wraps get_schema_summary() with enhanced formatting and server info.
 
         Returns:
@@ -245,7 +245,7 @@ class DatabaseManager:
         """
         Clear all schema cache entries.
 
-        Called by posdb_cache_invalidate when table_name is None.
+        Called by cache_invalidate when table_name is None.
 
         Returns:
             Dict with success, message, and cleared_count
@@ -421,7 +421,7 @@ class DatabaseManager:
         """
         Export table schema to a JSON file.
 
-        Called by posdb_export_schema tool handler.
+        Called by export_schema tool handler.
 
         Args:
             table_name: Name of table to export

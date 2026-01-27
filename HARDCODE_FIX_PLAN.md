@@ -83,7 +83,7 @@
 docker-compose restart mcp-db mcp-db-http
 
 # 2. 檢查工具描述
-# 在 Claude Desktop 中呼叫 posdb_schema 工具，查看描述是否已更新
+# 在 Claude Desktop 中呼叫 db_schema 工具，查看描述是否已更新
 # 或訪問 http://localhost:8000/docs 查看 API 文檔
 ```
 
@@ -219,7 +219,7 @@ cache_ttl_minutes: int = Field(
 unset SCHEMA_CACHE_TTL_MINUTES
 docker-compose restart mcp-db
 
-# 2. 呼叫 posdb_cache_stats 查看 TTL
+# 2. 呼叫 db_cache_stats 查看 TTL
 # 應該顯示 60 分鐘
 
 # 3. 設定環境變數測試
@@ -693,7 +693,7 @@ def get_key_tables_description() -> str:
         pass
 
     # Fallback 到通用說明
-    return "Use posdb_schema_summary to discover available tables."
+    return "Use db_schema_summary to discover available tables."
 ```
 
 #### Step 2.4.2：在工具定義中使用動態描述

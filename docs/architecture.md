@@ -143,7 +143,7 @@ def get_database_manager() -> DatabaseManager
 **職責**: 自定義異常
 
 ```python
-class MCPPOSDBError(Exception)           # 基礎異常
+class MCPDBError(Exception)              # 基礎異常
 class DatabaseConnectionError(...)       # 連接錯誤
 class SchemaLoadError(...)               # Schema 載入錯誤
 class ToolExecutionError(...)            # 工具執行錯誤
@@ -281,13 +281,13 @@ def get_tool_by_name(name: str) -> Tool
 ```
 
 **工具清單**（10+ 工具）：
-- `posdb_test_connection` - 測試資料庫連接
-- `posdb_query` - 執行 SQL 查詢
-- `posdb_schema` - 取得 Schema 資訊
-- `posdb_list_tables` - 列出所有表格
-- `posdb_dependencies` - 分析表格依賴關係
-- `posdb_cache_stats` - 快取統計
-- `posdb_export_schema` - 匯出 Schema
+- `db_test_connection` - 測試資料庫連接
+- `db_query` - 執行 SQL 查詢
+- `db_schema` - 取得 Schema 資訊
+- `db_list_tables` - 列出所有表格
+- `db_dependencies` - 分析表格依賴關係
+- `db_cache_stats` - 快取統計
+- `db_export_schema` - 匯出 Schema
 - ... 等
 
 #### 🔧 handlers.py
@@ -571,7 +571,7 @@ class WebSocketMCPServer(BaseMCPServer):
 ```python
 # 在 tools/registry.py 中註冊新工具
 new_tool = Tool(
-    name="posdb_new_feature",
+    name="db_new_feature",
     description="...",
     inputSchema={...}
 )
