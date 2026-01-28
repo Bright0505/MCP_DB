@@ -316,6 +316,11 @@ class HTTPConfig(BaseModel):
         )
 
 
+def get_http_config() -> "HTTPConfig":
+    """Get HTTPConfig singleton from environment variables."""
+    return HTTPConfig.from_env()
+
+
 class AppConfig(BaseModel):
     """Application configuration combining all configs."""
 

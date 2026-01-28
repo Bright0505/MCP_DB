@@ -1,8 +1,4 @@
-"""SSE/HTTP transport MCP server.
-
-Provides MCP server functionality over HTTP Server-Sent Events (SSE) transport.
-Future refactoring will move implementation from http_server.py here.
-"""
+"""SSE/HTTP transport MCP server."""
 
 import logging
 import os

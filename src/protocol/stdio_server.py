@@ -1,8 +1,4 @@
-"""STDIO transport MCP server.
-
-Provides MCP server functionality over STDIO transport.
-Future refactoring will move implementation from server.py here.
-"""
+"""STDIO transport MCP server."""
 
 import asyncio
 import logging

@@ -69,12 +69,9 @@ class ToolRegistry:
         handler = self.handlers.get(request.name)
 
         if handler:
-            # Use registered handler
             logger.debug(f"Routing {request.name} to {handler.__class__.__name__}")
             return await handler.handle(request, db_manager)
         else:
-            # Tool not yet migrated to handler system
-            # Return None to signal fallback to legacy handling
             return None
 
     def is_tool_registered(self, tool_name: str) -> bool:

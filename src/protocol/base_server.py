@@ -1,11 +1,6 @@
-"""Base MCP server - Transport-agnostic MCP protocol implementation.
-
-This module provides the core MCP server functionality independent of transport mechanism.
-Future refactoring will extract common MCP logic from server.py and http_server.py here.
-"""
+"""Base MCP server - Transport-agnostic MCP protocol implementation."""
 
 import logging
-from typing import Optional
 from mcp.server import Server
 from database.manager import DatabaseManager
 from tools import get_all_tools
@@ -47,9 +42,6 @@ class BaseMCPServer:
         @self.server.call_tool()
         async def call_tool(name: str, arguments: dict):
             """Handle tool execution."""
-            # Create CallToolRequest-like object from parameters
-            # Note: We use a simple object instead of mcp.types.CallToolRequest
-            # because the MCP library provides name/arguments directly
             request = type('CallToolRequest', (), {
                 'name': name,
                 'arguments': arguments or {}
