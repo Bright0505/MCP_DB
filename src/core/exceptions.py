@@ -18,9 +18,6 @@ class MCPDBError(Exception):
         }
 
 
-# Backward compatibility alias
-MCPPOSDBError = MCPDBError
-
 
 class ToolExecutionError(MCPDBError):
     """Exception raised when tool execution fails."""

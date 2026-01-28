@@ -228,7 +228,7 @@ class HybridDatabaseManager:
         if not summary.get("success"):
             return summary
 
-        # Transform to expected format for posdb_schema_summary tool
+        # Transform to expected format for schema_summary tool
         return {
             "success": True,
             "database_type": summary.get("database_type", "unknown"),

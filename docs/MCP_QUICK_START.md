@@ -13,22 +13,22 @@ This project implements a full MCP server with **10+ database tools**, enabling 
 ## ✨ 核心功能
 
 ### 🔌 連線管理
-- `posdb_test_connection` - 測試資料庫連線狀態
+- `db_test_connection` - 測試資料庫連線狀態
 
 ### 📊 資料查詢（只讀模式）
-- `posdb_query` - 執行 SELECT 查詢並返回結果（不支援 INSERT/UPDATE/DELETE）
+- `db_query` - 執行 SELECT 查詢並返回結果（不支援 INSERT/UPDATE/DELETE）
 
 ### 🗄️ Schema 分析
-- `posdb_schema` - 查看資料庫表格和欄位結構
-- `posdb_dependencies` - 分析表格間的依賴關係
-- `posdb_schema_summary` - 查看資料庫摘要統計
-- `posdb_export_schema` - 匯出表格 Schema 到文件
-- `posdb_static_schema_info` - 查看靜態 Schema 配置資訊
+- `db_schema` - 查看資料庫表格和欄位結構
+- `db_dependencies` - 分析表格間的依賴關係
+- `db_schema_summary` - 查看資料庫摘要統計
+- `db_export_schema` - 匯出表格 Schema 到文件
+- `db_static_schema_info` - 查看靜態 Schema 配置資訊
 
 ### ⚡ 效能優化
-- `posdb_cache_stats` - 查看 Schema 快取統計資訊
-- `posdb_cache_invalidate` - 清除快取條目
-- `posdb_schema_reload` - 重新載入 Schema 配置
+- `db_cache_stats` - 查看 Schema 快取統計資訊
+- `db_cache_invalidate` - 清除快取條目
+- `db_schema_reload` - 重新載入 Schema 配置
 
 ---
 
@@ -388,29 +388,15 @@ docker-compose up -d mcp-db
 
 ---
 
-## 📚 其他資源
+## 其他資源
 
-- 📖 [完整安裝指南](installation.md)
-- ⚙️ [配置選項說明](configuration.md)
-- 🔧 [API 參考文檔](api-reference.md)
-- 🐳 [Docker 部署指南](docker.md)
-- 💡 [故障排除指南](troubleshooting.md)
-
----
-
-## 🎉 開始使用!
-
-現在您已經準備好使用 MCP Multi-Database Connector 了!
-
-1. ✅ 選擇一種部署方式 (Claude Desktop / Docker / HTTP API)
-2. ✅ 完成環境配置
-3. ✅ 測試資料庫連線
-4. ✅ 開始與 Claude 對話,探索您的資料庫!
-
-有任何問題,請參考 [故障排除指南](troubleshooting.md) 或提交 [GitHub Issue](https://github.com/yourusername/mcp-db/issues)。
+- [安裝指南](installation.md)
+- [系統架構](architecture.md)
+- [Schema 系統](schema-system.md)
+- [效能優化](performance.md)
+- [測試指南](testing.md)
 
 ---
 
-**建立者**: BrightSu
-**版本**: v4.0.0
-**最後更新**: 2025-11-26
+**版本**：v1.0.0
+**最後更新**：2026-01-27

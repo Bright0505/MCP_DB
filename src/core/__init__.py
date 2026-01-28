@@ -2,7 +2,6 @@
 
 from .exceptions import (
     MCPDBError,
-    MCPPOSDBError,  # backward compatibility alias
     ToolExecutionError,
     SchemaLoadError,
     DatabaseConnectionError,
@@ -11,7 +10,6 @@ from .exceptions import (
 
 __all__ = [
     "MCPDBError",
-    "MCPPOSDBError",
     "ToolExecutionError",
     "SchemaLoadError",
     "DatabaseConnectionError",

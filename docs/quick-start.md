@@ -1,10 +1,10 @@
-# 🚀 快速開始指南
+# 快速開始指南
 
-歡迎使用 MCP Multi-Database Connector v4.0！這個 5 分鐘指南將幫您快速上手 MCP + OpenAPI 雙模式架構。
+歡迎使用 MCP Multi-Database Connector！這份 5 分鐘指南將幫助您快速上手 MCP + OpenAPI 雙模式架構。
 
-## 🎯 選擇您的使用方式
+## 選擇您的使用方式
 
-MCP Multi-Database Connector v4.0 提供雙模式架構，請根據您的需求選擇：
+MCP Multi-Database Connector 提供雙模式架構，請根據需求選擇：
 
 | 使用方式 | 適合對象 | 時間需求 | 難度 |
 |----------|----------|----------|------|
@@ -138,20 +138,18 @@ docker-compose ps
 
 根據您選擇的使用方式，深入了解更多功能：
 
-### 📖 如果您使用 Claude Desktop (MCP)
-- [🚀 MCP 快速入門](MCP_QUICK_START.md) - 完整的 MCP 功能指南
-- [🛠️ 可用工具](api-reference.md) - 了解所有 MCP 工具
-- [🏢 schemas_config 企業特化](../schemas_config/README.md) - 配置企業特定業務邏輯
+### 如果您使用 Claude Desktop (MCP)
+- [MCP 快速入門](MCP_QUICK_START.md) — 完整 MCP 功能指南
+- [schemas_config 業務客製化](../schemas_config/README.md) — 配置業務領域邏輯
 
-### 📖 如果您使用 HTTP API (OpenAPI)
-- [🌐 HTTP API 使用](http-api.md) - 完整 API 使用指南
-- [🔍 API 參考](api-reference.md) - 詳細 API 文檔
-- 💡 **Open WebUI 整合** - 將 API 端點配置到 Open WebUI
+### 如果您使用 HTTP API (OpenAPI)
+- API 文件位於 http://localhost:8000/docs（啟動服務後存取）
+- Open WebUI 整合 — 將 API 端點配置到 Open WebUI
 
-### 📖 通用進階主題
-- [📊 Schema 系統](schema-system.md) - 了解靜態 Schema 和 JSON 配置
-- [⚡ 效能優化](performance.md) - 快取系統和效能調優（60-80% token 節省）
-- [🗄️ 多資料庫支援](database-support.md) - SQL Server 和 PostgreSQL 特定功能
+### 通用進階主題
+- [Schema 系統](schema-system.md) — 靜態 Schema 與 JSON 配置
+- [效能優化](performance.md) — 快取系統與效能調校（60-80% Token 節省）
+- [系統架構](architecture.md) — 分層架構設計與模組說明
 
 ---
 
@@ -184,11 +182,10 @@ GRANT SELECT ON SCHEMA::dbo TO your_username;
 netstat -tuln | grep 8000  # HTTP API
 ```
 
-### 📞 獲得更多幫助
-- 📖 **詳細故障排除**: [故障排除指南](troubleshooting.md)
-- 💬 **社群支援**: [GitHub Discussions](https://github.com/brightsu/mcp-db/discussions)
-- 📧 **問題回報**: [GitHub Issues](https://github.com/brightsu/mcp-db/issues)
+### 獲得更多幫助
+- [GitHub Issues](https://github.com/Bright0505/MCP_DB/issues) — 問題回報
 
 ---
 
-> 🎉 **恭喜！** 您已經成功設定 MCP Multi-Database Connector v4.0.0（MCP + OpenAPI 雙模式架構）。開始探索強大的多資料庫連接功能吧！
+**版本**：v1.0.0
+**最後更新**：2026-01-27

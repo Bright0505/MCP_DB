@@ -1,6 +1,6 @@
 # 🏗️ 系統架構
 
-MCP Multi-Database Connector 採用分層模組化設計，提供靈活且可擴展的多資料庫連接解決方案。本文檔詳細說明 v4.2.0 的架構設計、核心模組和資料流程。
+MCP Multi-Database Connector 採用分層模組化設計，提供靈活且可擴展的多資料庫連接解決方案。本文件詳細說明架構設計、核心模組與資料流程。
 
 ## 📊 總體架構
 
@@ -64,7 +64,7 @@ graph TB
     DBM --> POSTGRES
 ```
 
-## 🎯 設計原則 (v4.2.0)
+## 設計原則
 
 ### 1. 分層架構 (Layered Architecture)
 - **核心層 (core/)**: 配置管理、依賴注入、異常處理
@@ -95,7 +95,7 @@ graph TB
 
 ---
 
-## 🧱 v4.2.0 分層架構詳解
+## 分層架構詳解
 
 ### 1️⃣ 核心層 (core/)
 
@@ -143,7 +143,7 @@ def get_database_manager() -> DatabaseManager
 **職責**: 自定義異常
 
 ```python
-class MCPPOSDBError(Exception)           # 基礎異常
+class MCPDBError(Exception)              # 基礎異常
 class DatabaseConnectionError(...)       # 連接錯誤
 class SchemaLoadError(...)               # Schema 載入錯誤
 class ToolExecutionError(...)            # 工具執行錯誤
@@ -281,13 +281,13 @@ def get_tool_by_name(name: str) -> Tool
 ```
 
 **工具清單**（10+ 工具）：
-- `posdb_test_connection` - 測試資料庫連接
-- `posdb_query` - 執行 SQL 查詢
-- `posdb_schema` - 取得 Schema 資訊
-- `posdb_list_tables` - 列出所有表格
-- `posdb_dependencies` - 分析表格依賴關係
-- `posdb_cache_stats` - 快取統計
-- `posdb_export_schema` - 匯出 Schema
+- `db_test_connection` - 測試資料庫連接
+- `db_query` - 執行 SQL 查詢
+- `db_schema` - 取得 Schema 資訊
+- `db_list_tables` - 列出所有表格
+- `db_dependencies` - 分析表格依賴關係
+- `db_cache_stats` - 快取統計
+- `db_export_schema` - 匯出 Schema
 - ... 等
 
 #### 🔧 handlers.py
@@ -571,7 +571,7 @@ class WebSocketMCPServer(BaseMCPServer):
 ```python
 # 在 tools/registry.py 中註冊新工具
 new_tool = Tool(
-    name="posdb_new_feature",
+    name="db_new_feature",
     description="...",
     inputSchema={...}
 )
@@ -621,7 +621,7 @@ cache.get_preload_status()
 
 ---
 
-## 🔗 v4.2.0 架構改進總結
+## 架構設計總結
 
 ### 關鍵改進
 1. ✅ **分層架構重構** - 清晰的職責劃分（core/database/tools/mcp/api）
@@ -635,11 +635,11 @@ cache.get_preload_status()
 
 ---
 
-> 📚 **相關文檔**:
-> - [v4.2 架構重構詳解](development/v4.2-architecture-refactoring.md) - 完整的重構文檔
-> - [Schema 系統](schema-system.md) - schemas_config 配置系統
-> - [效能優化](performance.md) - 快取和 Token 優化策略
-> - [測試指南](../TESTING_SUMMARY.md) - 單元測試和覆蓋率報告
+> **相關文件**：
+> - [v4.2 架構重構詳解](development/v4.2-architecture-refactoring.md) — 完整重構文件
+> - [Schema 系統](schema-system.md) — schemas_config 配置系統
+> - [效能優化](performance.md) — 快取與 Token 優化策略
+> - [測試指南](testing.md) — 單元測試與覆蓋率報告
 
-**最後更新**: 2025-12-30
-**架構版本**: v4.2.0
+**最後更新**：2026-01-27
+**版本**：v1.0.0

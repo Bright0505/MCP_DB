@@ -261,7 +261,6 @@ manager.clear_cache()
 
 ---
 
-> **Related docs**:
-> - [Architecture](architecture.md) - System architecture
-> - [Performance](performance.md) - Cache and optimization
-> - [API Reference](api-reference.md) - Complete API docs
+> **相關文件**：
+> - [系統架構](architecture.md) — 架構設計
+> - [效能優化](performance.md) — 快取與優化
