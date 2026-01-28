@@ -1,4 +1,4 @@
-# Schema Configuration System v2.1 - User Manual
+# Schema Configuration System - User Manual
 
 ## Overview
 

@@ -1,6 +1,6 @@
 # 快速開始指南
 
-歡迎使用 MCP Multi-Database Connector v5.0！這份 5 分鐘指南將幫助您快速上手 MCP + OpenAPI 雙模式架構。
+歡迎使用 MCP Multi-Database Connector！這份 5 分鐘指南將幫助您快速上手 MCP + OpenAPI 雙模式架構。
 
 ## 選擇您的使用方式
 
@@ -187,5 +187,5 @@ netstat -tuln | grep 8000  # HTTP API
 
 ---
 
-**版本**：v5.0.0
+**版本**：v1.0.0
 **最後更新**：2026-01-27

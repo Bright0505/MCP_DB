@@ -1,6 +1,6 @@
 # MCP Multi-Database Connector 技術文件
 
-歡迎使用 MCP Multi-Database Connector v5.0 技術文件。
+歡迎使用 MCP Multi-Database Connector 技術文件。
 
 ## 文件導覽
 

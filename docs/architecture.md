@@ -64,7 +64,7 @@ graph TB
     DBM --> POSTGRES
 ```
 
-## 🎯 設計原則 (v4.2.0)
+## 設計原則
 
 ### 1. 分層架構 (Layered Architecture)
 - **核心層 (core/)**: 配置管理、依賴注入、異常處理
@@ -95,7 +95,7 @@ graph TB
 
 ---
 
-## 🧱 v4.2.0 分層架構詳解
+## 分層架構詳解
 
 ### 1️⃣ 核心層 (core/)
 
@@ -621,7 +621,7 @@ cache.get_preload_status()
 
 ---
 
-## 🔗 v4.2.0 架構改進總結
+## 架構設計總結
 
 ### 關鍵改進
 1. ✅ **分層架構重構** - 清晰的職責劃分（core/database/tools/mcp/api）
@@ -642,4 +642,4 @@ cache.get_preload_status()
 > - [測試指南](testing.md) — 單元測試與覆蓋率報告
 
 **最後更新**：2026-01-27
-**版本**：v5.0.0
+**版本**：v1.0.0
