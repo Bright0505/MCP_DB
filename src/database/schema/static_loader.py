@@ -7,9 +7,8 @@ import json
 import os
 import re
 from pathlib import Path
-from typing import Dict, List, Optional, Any, Union
+from typing import Dict, List, Optional, Any
 import logging
-from functools import lru_cache
 
 logger = logging.getLogger(__name__)
 
@@ -200,8 +199,6 @@ class SchemaConfigManager:
             enhanced_columns.append(enhanced_col)
 
         return enhanced_columns
-
-
 
 
     def _get_table_from_json_list(self, table_name: str) -> Optional[Dict[str, Any]]:

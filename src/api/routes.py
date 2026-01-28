@@ -1,12 +1,9 @@
-"""FastAPI routes for MCP Database REST API.
-
-Future refactoring will move REST endpoints from http_server.py here.
-"""
+"""FastAPI routes for MCP Database REST API."""
 
 import logging
 from datetime import datetime
 from typing import Any, Dict, List, Optional
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 
 from database.manager import DatabaseManager
@@ -14,7 +11,7 @@ from core.dependencies import get_db_manager_dependency
 
 logger = logging.getLogger(__name__)
 
-# Pydantic models for request/response
+
 class QueryRequest(BaseModel):
     query: str
     params: Optional[List[Any]] = None
@@ -44,16 +41,12 @@ class APIResponse(BaseModel):
     timestamp: str
 
 
-# Create API router
 router = APIRouter(prefix="/api/v1")
 
 
 @router.get("/health", response_model=HealthResponse)
 async def health_check(db: DatabaseManager = Depends(get_db_manager_dependency)):
-    """Health check endpoint.
-
-    Future: Move implementation from http_server.py
-    """
+    """Health check endpoint."""
     return HealthResponse(
         status="ok",
         timestamp=datetime.now().isoformat(),
@@ -67,10 +60,7 @@ async def execute_query(
     request: QueryRequest,
     db: DatabaseManager = Depends(get_db_manager_dependency)
 ):
-    """Execute a SQL query.
-
-    Future: Move implementation from http_server.py
-    """
+    """Execute a SQL query."""
     result = db.execute_query(request.query, request.params)
     return APIResponse(
         success=result.get("success", False),
@@ -82,10 +72,7 @@ async def execute_query(
 
 @router.get("/tools", response_model=List[ToolInfo])
 async def list_tools():
-    """List all available MCP tools.
-
-    Future: Move implementation from http_server.py
-    """
+    """List all available MCP tools."""
     from tools import get_all_tools
     tools = get_all_tools()
     return [
@@ -103,10 +90,7 @@ async def get_schema(
     table_name: Optional[str] = None,
     db: DatabaseManager = Depends(get_db_manager_dependency)
 ):
-    """Get database schema information.
-
-    Future: Move implementation from http_server.py
-    """
+    """Get database schema information."""
     result = db.get_schema_info(table_name)
     return APIResponse(
         success=result.get("success", False),
@@ -121,10 +105,7 @@ async def invalidate_cache(
     request: CacheInvalidateRequest,
     db: DatabaseManager = Depends(get_db_manager_dependency)
 ):
-    """Invalidate schema cache.
-
-    Future: Move implementation from http_server.py
-    """
+    """Invalidate schema cache."""
     result = db.invalidate_schema_cache(request.table_name)
     return APIResponse(
         success=result.get("success", False),
@@ -136,10 +117,7 @@ async def invalidate_cache(
 
 @router.get("/cache/stats")
 async def get_cache_stats(db: DatabaseManager = Depends(get_db_manager_dependency)):
-    """Get schema cache statistics.
-
-    Future: Move implementation from http_server.py
-    """
+    """Get schema cache statistics."""
     result = db.get_schema_cache_stats()
     return APIResponse(
         success=result.get("success", False),

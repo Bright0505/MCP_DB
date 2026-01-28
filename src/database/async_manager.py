@@ -267,10 +267,6 @@ class HybridDatabaseManager:
         """Get static schema info (sync)."""
         return self.sync_manager.get_static_schema_info()
 
-    def get_database_info(self) -> Dict[str, Any]:
-        """Get database info (sync)."""
-        return self.sync_manager.get_database_info()
-
     def clear_all_cache(self) -> Dict[str, Any]:
         """Clear all cache (sync)."""
         return self.sync_manager.clear_all_cache()

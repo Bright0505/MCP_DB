@@ -19,7 +19,6 @@ import asyncio
 import logging
 import os
 import sys
-from typing import Optional
 
 # Configure logging
 logging.basicConfig(
@@ -37,18 +36,6 @@ async def run_stdio_mode():
     """
     logger.info("Starting MCP Database Server in STDIO mode")
 
-    from core.config import DatabaseConfig, AppConfig
-    from database.manager import DatabaseManager
-
-    # Create database manager with preload enabled
-    try:
-        db_manager = DatabaseManager.create_with_preload()
-        logger.info("DatabaseManager initialized with preload")
-    except Exception as e:
-        logger.error(f"Failed to initialize DatabaseManager: {e}")
-        sys.exit(1)
-
-    # Run STDIO MCP server
     from protocol.stdio_server import run_stdio_server
     try:
         await run_stdio_server()
@@ -160,7 +147,6 @@ async def run_http_mode(host: str = "0.0.0.0", port: int = 8000):
         # Close database connections if needed
         try:
             if hasattr(db_manager, 'db_connector'):
-                # Future: add connection pool cleanup here
                 logger.info("Database connections cleanup completed")
         except Exception as e:
             logger.warning(f"Error closing database connections: {e}")

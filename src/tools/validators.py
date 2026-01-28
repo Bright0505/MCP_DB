@@ -71,7 +71,7 @@ class SQLValidator:
             return False, "File export commands not allowed"
 
         # Limit query length to prevent DOS attacks
-        from src.core.config import QueryConfig
+        from core.config import QueryConfig
         config = QueryConfig.from_env()
         if len(query) > config.max_query_length:
             return False, f"Query too long (max {config.max_query_length} characters)"
@@ -122,7 +122,7 @@ class InputValidator:
         Returns:
             Tuple of (is_valid, error_message)
         """
-        from src.core.config import QueryConfig
+        from core.config import QueryConfig
 
         if limit < 0:
             return False, "Limit cannot be negative"
