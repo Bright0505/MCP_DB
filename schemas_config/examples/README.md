@@ -1,33 +1,33 @@
-# Schema Configuration Examples
+# Schema 配置範例
 
-This directory contains example configuration files to help you set up `schemas_config/` for your own database.
+本目錄包含範例配置檔案，幫助您為自己的資料庫設定 `schemas_config/`。
 
-## Files
+## 檔案
 
-- **`sample_table.json`** - A complete table configuration example showing all available fields and formats. Use this as a reference when creating your own `tables/*.json` files.
+- **`sample_table.json`** - 完整的表格配置範例，展示所有可用欄位與格式。建立您自己的 `tables/*.json` 檔案時，可以此作為參考。
 
-## How to Use
+## 使用方式
 
-1. Copy `sample_table.json` to `../tables/YOUR_TABLE.json`
-2. Replace the table name, columns, relationships, and business logic with your own
-3. Register the table in `../tables_list.json` under the `tables` key
-4. Restart the MCP server or HTTP API to load the new configuration
+1. 將 `sample_table.json` 複製到 `../tables/YOUR_TABLE.json`
+2. 將表格名稱、欄位、關聯與業務邏輯替換為您自己的內容
+3. 在 `../tables_list.json` 的 `tables` 鍵下註冊該表格
+4. 重新啟動 MCP 伺服器或 HTTP API 以載入新配置
 
-## Minimal Configuration
+## 最小化配置
 
-You don't need all fields. A minimal table config only requires:
+您不需要所有欄位。最小化的表格配置只需要：
 
 ```json
 {
   "table_name": "YOUR_TABLE",
-  "display_name": "Your Table",
+  "display_name": "您的表格",
   "key_columns": {
     "ID": {
       "semantic_type": "primary_identifier",
-      "description": "Primary key"
+      "description": "主鍵"
     }
   }
 }
 ```
 
-The system will automatically apply `global_patterns.json` rules for any columns not explicitly defined.
+系統會自動為未明確定義的欄位套用 `global_patterns.json` 規則。
