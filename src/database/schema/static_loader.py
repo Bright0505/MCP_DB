@@ -230,11 +230,16 @@ class SchemaConfigManager:
 
         for table_name, table_config in json_tables.items():
             if table_name not in processed_tables:
+                # Determine default schema based on database type
+                db_type = os.environ.get('DB_TYPE', 'mssql').lower()
+                default_schema = 'public' if db_type == 'postgresql' else 'dbo'
+                db_schema = os.environ.get('DB_SCHEMA', default_schema)
+
                 table_info = {
                     'TABLE_NAME': table_name,
                     'TABLE_TYPE': table_config.get('table_type', 'TABLE'),
                     'DISPLAY_NAME': table_config.get('display_name', table_name),
-                    'TABLE_SCHEMA': 'dbo',
+                    'TABLE_SCHEMA': db_schema,
                     'ROW_COUNT': 0,
                     'SIZE_MB': 0.0
                 }
