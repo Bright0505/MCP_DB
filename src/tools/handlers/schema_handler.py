@@ -1,6 +1,7 @@
 """Schema information handlers."""
 
 import logging
+import os
 from typing import Any, Dict, List
 from mcp.types import CallToolRequest
 
@@ -68,7 +69,7 @@ class SchemaHandler(ToolHandler):
 
     def _format_table_schema(self, result: Dict[str, Any], table_name: str) -> Dict[str, Any]:
         """Format detailed table schema."""
-        db_type = result.get('database_type', 'mssql')
+        db_type = result.get('database_type') or os.environ.get('DB_TYPE', 'mssql').lower()
         db_type_display = 'SQL Server (T-SQL)' if db_type == 'mssql' else 'PostgreSQL'
 
         output = f"✅ Schema for table '{table_name}':\n"
@@ -217,7 +218,7 @@ class SchemaHandler(ToolHandler):
             output += f"📡 Source: {result.get('source', 'unknown')}\n"
             return self._success_response(output)
 
-        db_type = result.get('database_type', 'unknown')
+        db_type = result.get('database_type') or os.environ.get('DB_TYPE', 'mssql').lower()
         db_type_display = {
             'mssql': 'SQL Server (T-SQL)',
             'postgresql': 'PostgreSQL'
@@ -225,7 +226,12 @@ class SchemaHandler(ToolHandler):
 
         output = f"✅ Database schema (showing {result['total_count']} objects):\n\n"
         output += f"🗄️  Database Type: {db_type_display}\n"
-        output += f"📝 Syntax Guide: Use GETDATE() for current date, TOP N for limits, T-SQL functions\n\n"
+
+        # Show database-specific syntax guide
+        if db_type == 'postgresql':
+            output += f"📝 Syntax Guide: Use NOW() for current date, LIMIT N for limits, PostgreSQL functions\n\n"
+        else:
+            output += f"📝 Syntax Guide: Use GETDATE() for current date, TOP N for limits, T-SQL functions\n\n"
 
         # Group by schema and type
         tables = {}
@@ -293,8 +299,8 @@ class SchemaHandler(ToolHandler):
         if not result["success"]:
             error_msg = result.get('message') or result.get('error', 'Unknown error')
             return self._error_response(f"Database info query failed: {error_msg}")
-        
-        db_type = result.get('database_type', 'unknown')
+
+        db_type = result.get('database_type') or os.environ.get('DB_TYPE', 'mssql').lower()
         db_type_display = {
             'mssql': 'SQL Server (T-SQL)',
             'postgresql': 'PostgreSQL'

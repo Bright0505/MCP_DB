@@ -2,6 +2,7 @@
 
 import json
 import logging
+import os
 from typing import Any, Dict, List, Optional
 from pathlib import Path
 from datetime import datetime, timedelta
@@ -437,7 +438,7 @@ class SchemaPreloader:
             # Use flat structure to match database query format (introspector.py:263-276)
             summary_result = {
                 'success': True,
-                'database_type': 'mssql',  # Will be overridden by actual DB type at runtime
+                'database_type': os.environ.get('DB_TYPE', 'mssql').lower(),
                 'tables': summary['total_tables'],
                 'views': 0,  # JSON config doesn't track views
                 'procedures': 0,  # JSON config doesn't track procedures
