@@ -427,10 +427,10 @@ class SchemaPreloader:
                         'business_importance': schema.get('business_importance', 'medium'),
                         'database_validated': table_exists  # Mark validation status
                     }
-                    cache_key = f"table_schema_{table_name}_static"
+                    cache_key = f"table_schema_{table_name.upper()}_static"
                     self.cache.set(cache_key, result)
                     loaded_count += 1
-                    loaded_table_names.append(table_name)
+                    loaded_table_names.append(table_name.upper())
 
             # Cache summary with validation info
             summary = manager.get_summary()
