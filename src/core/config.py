@@ -185,6 +185,11 @@ class DatabaseConfig(BaseModel):
         if self.password:
             parts.append(f"password={self.password}")
 
+        # Set search_path via options parameter (libpq format)
+        # Format: options='-c search_path=schema1,schema2'
+        if self.schema:
+            parts.append(f"options='-c search_path={self.schema},public'")
+
         return " ".join(parts)
 
 

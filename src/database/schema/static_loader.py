@@ -206,7 +206,10 @@ class SchemaConfigManager:
         tables_list_config = self._configs_cache.get('tables_list', {})
         tables = tables_list_config.get('tables', {})
 
-        table_info = tables.get(table_name.upper())
+        # 嘗試用大寫和小寫兩種方式查詢（相容性處理）
+        table_name_upper = table_name.upper()
+        table_name_lower = table_name.lower()
+        table_info = tables.get(table_name_upper) or tables.get(table_name_lower) or tables.get(table_name)
         if table_info:
             return {
                 'TABLE_TYPE': table_info.get('table_type', 'TABLE'),
@@ -229,14 +232,18 @@ class SchemaConfigManager:
         json_tables = tables_list_config.get('tables', {})
 
         for table_name, table_config in json_tables.items():
-            if table_name not in processed_tables:
+            # 統一使用小寫作為表格名稱（PostgreSQL 慣例）
+            table_name_lower = table_name.lower()
+            table_name_upper = table_name.upper()
+
+            if table_name_lower not in processed_tables:
                 # Determine default schema based on database type
                 db_type = os.environ.get('DB_TYPE', 'mssql').lower()
                 default_schema = 'public' if db_type == 'postgresql' else 'dbo'
                 db_schema = os.environ.get('DB_SCHEMA', default_schema)
 
                 table_info = {
-                    'TABLE_NAME': table_name,
+                    'TABLE_NAME': table_name_lower,  # 使用小寫（PostgreSQL 慣例）
                     'TABLE_TYPE': table_config.get('table_type', 'TABLE'),
                     'DISPLAY_NAME': table_config.get('display_name', table_name),
                     'TABLE_SCHEMA': db_schema,
@@ -244,8 +251,12 @@ class SchemaConfigManager:
                     'SIZE_MB': 0.0
                 }
 
-                # 從詳細的 JSON 配置增強
-                detailed_config = self._configs_cache.get('table_configs', {}).get(table_name, {})
+                # 從詳細的 JSON 配置增強（嘗試大寫和小寫）
+                detailed_config = (
+                    self._configs_cache.get('table_configs', {}).get(table_name_upper, {}) or
+                    self._configs_cache.get('table_configs', {}).get(table_name_lower, {}) or
+                    self._configs_cache.get('table_configs', {}).get(table_name, {})
+                )
                 if detailed_config:
                     table_info.update({
                         'ENHANCED_DISPLAY_NAME': detailed_config.get('display_name'),
@@ -254,7 +265,7 @@ class SchemaConfigManager:
                     })
 
                 tables.append(table_info)
-                processed_tables.add(table_name)
+                processed_tables.add(table_name_lower)
 
         return tables
 
