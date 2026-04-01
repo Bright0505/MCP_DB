@@ -213,7 +213,8 @@ class SchemaHandler(ToolHandler):
             output += "   2. Insufficient permissions to query INFORMATION_SCHEMA\n"
             output += "   3. Cache not properly initialized\n"
             output += "   4. Connected to wrong database/schema\n\n"
-            output += f"🗄️  Database Type: {result.get('database_type', 'unknown')}\n"
+            db_type_env = os.environ.get('DB_TYPE', 'unknown').lower()
+            output += f"🗄️  Database Type: {result.get('database_type') or db_type_env}\n"
             output += f"💾 Cache Source: {result.get('cache_source', 'unknown')}\n"
             output += f"📡 Source: {result.get('source', 'unknown')}\n"
             return self._success_response(output)
@@ -229,7 +230,7 @@ class SchemaHandler(ToolHandler):
 
         # Show database-specific syntax guide
         if db_type == 'postgresql':
-            output += f"📝 Syntax Guide: Use NOW() for current date, LIMIT N for limits, PostgreSQL functions\n\n"
+            output += f"📝 Syntax Guide: Use CURRENT_DATE for current date, LIMIT N for limits, PostgreSQL functions\n\n"
         else:
             output += f"📝 Syntax Guide: Use GETDATE() for current date, TOP N for limits, T-SQL functions\n\n"
 

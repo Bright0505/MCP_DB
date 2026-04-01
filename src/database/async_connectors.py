@@ -177,6 +177,11 @@ class AsyncPostgreSQLConnector(AsyncDatabaseConnector):
     async def initialize_pool(self, pool_size: int = 10):
         """Initialize asyncpg connection pool."""
         try:
+            # Build server_settings for search_path
+            server_settings = {}
+            if self.config.schema:
+                server_settings["search_path"] = f"{self.config.schema},public"
+
             self._pool = await asyncpg.create_pool(
                 host=self.config.server,
                 database=self.config.database,
@@ -185,7 +190,8 @@ class AsyncPostgreSQLConnector(AsyncDatabaseConnector):
                 port=self.config.port or 5432,
                 min_size=2,
                 max_size=pool_size,
-                command_timeout=self.config.command_timeout
+                command_timeout=self.config.command_timeout,
+                server_settings=server_settings if server_settings else None
             )
             logger.info(f"✅ Async PostgreSQL connection pool initialized (size: {pool_size})")
         except Exception as e:

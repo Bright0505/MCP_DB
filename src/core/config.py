@@ -303,7 +303,7 @@ class HTTPConfig(BaseModel):
         description="Default rate limit for all endpoints"
     )
     rate_limit_query: str = Field(
-        default="30/minute",
+        default="100/minute",
         description="Rate limit for query endpoints"
     )
     cors_preflight_max_age: int = Field(

@@ -367,7 +367,8 @@ def run_http_server(
             server.app,
             host=host,
             port=port,
-            log_level="info"
+            log_level="info",
+            workers=int(os.environ.get("MCP_WORKERS", "1")),
         )
         server_uvicorn = uvicorn.Server(config_uvicorn)
         await server_uvicorn.serve()
