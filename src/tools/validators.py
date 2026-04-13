@@ -59,7 +59,8 @@ class SQLValidator:
             return False, "SQL comments not allowed"
 
         # Block xp_ extended stored procedures (SQL Server specific attack vector)
-        if 'XP_' in query_upper:
+        # Use word boundary to avoid false positives with REGEXP_MATCH, REGEXP_REPLACE etc.
+        if re.search(r'\bXP_', query_upper):
             return False, "Extended stored procedures not allowed"
 
         # Block OPENROWSET and OPENDATASOURCE (data exfiltration vectors)

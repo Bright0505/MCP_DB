@@ -227,8 +227,7 @@ class SchemaHandler(ToolHandler):
 
         output = f"✅ Database schema (showing {result['total_count']} objects):\n\n"
         output += f"🗄️  Database Type: {db_type_display}\n"
-
-        # Show database-specific syntax guide
+        # 根據資料庫類型顯示對應的語法提示
         if db_type == 'postgresql':
             output += f"📝 Syntax Guide: Use CURRENT_DATE for current date, LIMIT N for limits, PostgreSQL functions\n\n"
         else:
