@@ -3,6 +3,7 @@
 from abc import ABC, abstractmethod
 from contextlib import asynccontextmanager
 from typing import Any, Dict, List, Optional
+import asyncio
 import logging
 import os
 
@@ -13,6 +14,7 @@ except ImportError:
 
 try:
     import asyncpg
+    import asyncpg.exceptions
 except ImportError:
     asyncpg = None
 
@@ -111,12 +113,22 @@ class AsyncMSSQLConnector(AsyncDatabaseConnector):
                         "columns": columns
                     }
 
-        except Exception as e:
-            logger.error(f"Async query error: {e}")
+        except asyncio.TimeoutError:
+            timeout_secs = self.config.command_timeout
+            logger.error(f"Async MSSQL query timeout after {timeout_secs}s: query[:200]={query[:200]}")
             return {
                 "success": False,
-                "error": str(e),
-                "message": f"Query execution failed: {str(e)}",
+                "error": f"Query timeout after {timeout_secs}s",
+                "message": f"Query execution failed: timeout after {timeout_secs}s. 請拆分查詢範圍或縮短時段條件",
+                "query": query[:200]
+            }
+        except Exception as e:
+            err_msg = str(e) or repr(e) or type(e).__name__
+            logger.error(f"Async query error: {err_msg}")
+            return {
+                "success": False,
+                "error": err_msg,
+                "message": f"Query execution failed: {err_msg}",
                 "query": query[:200]  # Log first 200 chars for debugging
             }
 
@@ -228,12 +240,22 @@ class AsyncPostgreSQLConnector(AsyncDatabaseConnector):
                     "columns": columns
                 }
 
-        except Exception as e:
-            logger.error(f"Async query error: {e}")
+        except (asyncio.TimeoutError, asyncpg.exceptions.QueryCanceledError):
+            timeout_secs = self.config.command_timeout
+            logger.error(f"Async PostgreSQL query timeout after {timeout_secs}s: query[:200]={query[:200]}")
             return {
                 "success": False,
-                "error": str(e),
-                "message": f"Query execution failed: {str(e)}",
+                "error": f"Query timeout after {timeout_secs}s",
+                "message": f"Query execution failed: timeout after {timeout_secs}s. 請拆分查詢範圍或縮短時段條件",
+                "query": query[:200]
+            }
+        except Exception as e:
+            err_msg = str(e) or repr(e) or type(e).__name__
+            logger.error(f"Async query error: {err_msg}")
+            return {
+                "success": False,
+                "error": err_msg,
+                "message": f"Query execution failed: {err_msg}",
                 "query": query[:200]
             }
 
