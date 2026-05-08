@@ -70,7 +70,10 @@ class QueryHandler(ToolHandler):
             return self._success_response(output)
         else:
             # Error case
-            error_msg = result.get('message') or result.get('error', 'Unknown error')
+            error_msg = (result.get('message') or '').strip()
+            # 防禦：若 message 為空、或為「Query execution failed:」尾端冒號（代表 str(e) 為空）
+            if not error_msg or error_msg.rstrip(':').strip() in ('', 'Query execution failed'):
+                error_msg = result.get('error') or 'Unknown error (empty exception, possible timeout or connection drop)'
             output = f"❌ Query failed: {error_msg}\n\n"
 
             # Include query for debugging
