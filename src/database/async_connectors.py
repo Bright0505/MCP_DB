@@ -14,9 +14,13 @@ except ImportError:
 
 try:
     import asyncpg
-    import asyncpg.exceptions
+    from asyncpg.exceptions import QueryCanceledError
 except ImportError:
     asyncpg = None
+
+    class QueryCanceledError(Exception):
+        """Fallback when asyncpg is not installed; never raised in this branch."""
+        pass
 
 from core.config import DatabaseConfig
 
@@ -240,7 +244,7 @@ class AsyncPostgreSQLConnector(AsyncDatabaseConnector):
                     "columns": columns
                 }
 
-        except (asyncio.TimeoutError, asyncpg.exceptions.QueryCanceledError):
+        except (asyncio.TimeoutError, QueryCanceledError):
             timeout_secs = self.config.command_timeout
             logger.error(f"Async PostgreSQL query timeout after {timeout_secs}s: query[:200]={query[:200]}")
             return {
